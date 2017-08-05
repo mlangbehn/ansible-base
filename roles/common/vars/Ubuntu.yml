@@ -1,0 +1,16 @@
+---
+apt_packages:
+  - build-essential
+  - libssl-dev
+  - libffi-dev
+  - python-dev
+  - python-pip
+  - python-software-properties
+  - vim
+  - zsh
+
+system_users:
+  - matthew:
+    name: matthew
+    groups: sudo
+    shell: /usr/bin/zsh

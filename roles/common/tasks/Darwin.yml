@@ -1,0 +1,25 @@
+---
+- name: Check if homebrew is installed
+  stat:
+    path: /usr/local/bin/brew
+  register: brew_executable
+  failed_when: "not brew_executable.stat.exists"
+
+- name: Tap homebrew taps
+  homebrew_tap:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ homebrew_taps }}"
+
+- name: Install homebrew packages
+  homebrew:
+    name: "{{ item.name }}"
+    state: present
+    install_options: "{{ item.options }}"
+    update_homebrew: "yes"
+  with_items: "{{ homebrew_packages }}"
+
+- name: Update homebrew packages
+  homebrew:
+    update_homebrew: "yes"
+    upgrade_all: "yes"

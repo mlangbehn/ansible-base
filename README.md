@@ -1,0 +1,3 @@
+# ansible-base
+
+A simple repository to configure a base system. More coming soon...

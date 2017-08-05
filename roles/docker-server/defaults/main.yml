@@ -1,0 +1,14 @@
+---
+apt_packages_before:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+
+apt_repos:
+  - Docker:
+    id: 0EBFCD88
+    url: https://download.docker.com/linux/ubuntu/gpg
+    repo: "deb https://download.docker.com/linux/ubuntu xenial stable"
+
+apt_packages_after:
+  - docker-ce

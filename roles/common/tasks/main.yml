@@ -1,0 +1,20 @@
+---
+- name: Include extra variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}.yml"
+    - "{{ ansible_os_family }}.yml"
+    - "default.yml"
+
+- name: Include extra tasks
+  include: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}.yml"
+    - "{{ ansible_os_family }}.yml"
+
+- name: Create user(s)
+  user:
+    name: "{{ item.name }}"
+    groups: "{{ item.groups }}"
+    shell: "{{ item.shell }}"
+  with_items: "{{ system_users }}"
