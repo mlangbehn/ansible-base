@@ -7,9 +7,6 @@ matrix:
   fast_finish: true
 
 env:
-  - BEFORE_TEST_RUN="find . -name '*.yml' -print0 |
-    xargs -n1 -0 yamllint -c .yamllint.yml"
-  - BEFORE_TEST_RUN="ansible-lint site.yml"
   - TEST_RUN="ansible-playbook --syntax-check -i inventories/localhost site.yml"
   - TEST_RUN="ansible-playbook --list-hosts -i inventories/localhost site.yml"
   - TEST_RUN="ansible-playbook --list-tags -i inventories/localhost site.yml"
@@ -21,7 +18,9 @@ before_install:
 install:
   - pip install -U -r requirements.txt
 
-before_script: "$BEFORE_TEST_RUN"
+before_script:
+  - find . -name '*.yml' -print0 | xargs -n1 -0 yamllint -c .yamllint.yml
+  - ansible-lint site.yml
 
 script: "$TEST_RUN"
 
